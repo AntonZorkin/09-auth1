@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CreateNoteData } from '../api';
+import { CreateNoteData } from '../api/clientApi';
 
 interface DraftNoteStore {
   draft: CreateNoteData;
@@ -22,7 +22,6 @@ export const useDraftNoteStore = create<DraftNoteStore>()(
       clearDraft: () => set(() => ({ draft: initialDraft })),
     }),
     {
-      // Ключ у localStorage
       name: 'note-draft',
       partialize: state => ({ draft: state.draft }),
     }
