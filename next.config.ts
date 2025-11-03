@@ -3,11 +3,7 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    remotePatterns: [
-      {
-        hostname: 'ac.goit.global',
-      },
-    ],
+    remotePatterns: [{ protocol: 'https', hostname: 'ac.goit.global' }],
   },
 };
 

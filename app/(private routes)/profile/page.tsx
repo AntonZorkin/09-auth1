@@ -1,4 +1,4 @@
-//import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Metadata } from 'next';
@@ -36,13 +36,13 @@ const Profile = async () => {
           </Link>
         </div>
         <div className={css.avatarWrapper}>
-          {/* <Image
-            src="Avatar"
+          <Image
+            src={user.avatar}
             alt="User Avatar"
             width={120}
             height={120}
             className={css.avatar}
-          /> */}
+          />
         </div>
         <div className={css.profileInfo}>
           <p>Username: {user.username}</p>

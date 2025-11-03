@@ -27,6 +27,11 @@ interface CheckSessionRequest {
   success: boolean;
 }
 
+export interface UpdateUserRequest {
+  username: string;
+  email: string;
+}
+
 export const fetchNotes = async (
   search: string,
   page: number,
@@ -93,4 +98,9 @@ export const checkSession = async () => {
 export const getMe = async () => {
   const { data } = await nextServer.get<User>('/users/me');
   return data;
+};
+
+export const updateMe = async (payload: UpdateUserRequest) => {
+  const response = await nextServer.patch<User>('/users/me', payload);
+  return response.data;
 };
