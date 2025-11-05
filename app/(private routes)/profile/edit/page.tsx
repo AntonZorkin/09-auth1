@@ -5,13 +5,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast, Toaster } from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import css from './EditProfilePage.module.css';
-//import { useAuthStore } from '@/lib/store/authStore';
+import { useAuthStore } from '@/lib/store/authStore';
 import { getMe, updateMe, UpdateUserRequest } from '@/lib/api/clientApi';
 import Loading from './loading';
 
 const EditProfile = () => {
-  // const { user } = useAuthStore();
-  // const setUser = useAuthStore(store => store.setUser);
+  const { isAuthenticated } = useAuthStore();
+  const setUser = useAuthStore(store => store.setUser);
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
   const [email, setEmail] = useState('');
@@ -34,6 +34,7 @@ const EditProfile = () => {
     mutationFn: (payload: UpdateUserRequest) => updateMe(payload),
     onSuccess: () => {
       toast.success('Username updated!', { position: 'top-center' });
+      setUser({username, avatar, email});
       queryClient.invalidateQueries({ queryKey: ['username'] });
       router.push('/profile');
     },
@@ -41,7 +42,7 @@ const EditProfile = () => {
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updatedUser.mutate({ username, email });
+    updatedUser.mutate({ username });
   };
 
   const handleCancel = () => router.push('/profile');

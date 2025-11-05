@@ -29,7 +29,6 @@ interface CheckSessionRequest {
 
 export interface UpdateUserRequest {
   username: string;
-  email: string;
 }
 
 export const fetchNotes = async (

@@ -7,6 +7,7 @@ import css from './NotePreview.module.css';
 import { fetchNoteById } from '@/lib/api/clientApi';
 import Modal from '@/components/Modal/Modal';
 import Error from './error';
+import Loading from '@/app/loading';
 
 const NotePreviewClient = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,7 +15,7 @@ const NotePreviewClient = () => {
 
   const close = () => router.back();
 
-  const { data: note, error } = useQuery({
+  const { data: note, error, isLoading } = useQuery({
     queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
@@ -22,6 +23,7 @@ const NotePreviewClient = () => {
 
   if (error) return <Error error={error} />;
   if (!note) return <p>Something went wrong.</p>;
+  if (isLoading) return <Loading/>;
 
   const formattedDate = note.updatedAt
     ? `Updated at: ${note.updatedAt}`
